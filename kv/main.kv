@@ -1,0 +1,138 @@
+#:import dp kivy.metrics.dp
+
+<MainScreen>:
+    name: 'main'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(8)
+        spacing: dp(8)
+
+        # === LOGO NO TOPO ===
+        Image:
+            id: top_logo
+            source: 'assets/logo.png'   # coloque sua imagem em assets/logo.png
+            size_hint_y: None
+            height: dp(120)
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": 0.5}
+
+        # === TÍTULO / CABEÇALHO ===
+        BoxLayout:
+            size_hint_y: None
+            height: dp(48)
+            padding: dp(8)
+            canvas.before:
+                Color:
+                    rgba: 0.16, 0.5, 0.5, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: "Registro de Atividades"
+                bold: True
+                color: 1,1,1,1
+                halign: "center"
+                valign: "middle"
+
+        # === CAIXA QUE MOSTRA ATIVIDADE EM ANDAMENTO (inicialmente escondida) ===
+        BoxLayout:
+            id: active_box
+            size_hint_y: None
+            height: 0
+            opacity: 0
+            padding: dp(8)
+            spacing: dp(8)
+
+            canvas.before:
+                Color:
+                    rgba: 0.95, 0.95, 0.95, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [8,]
+
+            Label:
+                id: active_label
+                text: ""
+                halign: "left"
+                valign: "middle"
+                color: 0,0,0,1
+
+        # === STATUS FELIZ / INFORMAÇÃO ===
+        Label:
+            id: status_label
+            text: "Pronto para começar."
+            size_hint_y: None
+            height: dp(32)
+            halign: "center"
+            valign: "middle"
+            color: 0,0,0,1
+
+        # === LINHA: ATIVIDADE SELECIONADA (texto) ===
+        BoxLayout:
+            size_hint_y: None
+            height: dp(48)
+            padding: dp(8)
+            Label:
+                id: selected_activity_label
+                text: "Nenhuma atividade selecionada"
+                halign: "left"
+                valign: "middle"
+                color: 0,0,0,1
+
+        # === LISTA DE BOTÕES DE ATIVIDADE (Scroll) ===
+        ScrollView:
+            do_scroll_x: False
+            bar_width: dp(8)
+
+            GridLayout:
+                id: activity_buttons
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(8)
+                padding: dp(4)
+                row_default_height: dp(48)
+
+        # === DESCRIÇÃO ===
+        TextInput:
+            id: descricao_text
+            hint_text: "Descrição (opcional)"
+            size_hint_y: None
+            height: dp(80)
+            size_hint_x: 0.98
+            pos_hint: {"center_x": 0.5}
+            multiline: True
+
+        # === AÇÕES (Iniciar / Finalizar / Logout) ===
+        BoxLayout:
+            size_hint_y: None
+            height: dp(56)
+            spacing: dp(8)
+            padding: dp(4)
+
+            Button:
+                id: start_button
+                text: "Iniciar"
+                on_release: root.acao_iniciar()
+                background_normal: ''
+                background_color: (0.2, 0.6, 0.2, 1)  # verde padrão do botão iniciar
+
+            Button:
+                id: end_button
+                text: "Finalizar"
+                on_release: root.acao_finalizar()
+                background_normal: ''
+                background_color: (0.6, 0.2, 0.2, 1)  # vermelho para finalizar
+                disabled: True
+
+            Button:
+                text: "Logout"
+                on_release: root.logout()
+                background_normal: ''
+                background_color: (0.5,0.5,0.5,1)
+
+        Widget:
+            size_hint_y: None
+            height: dp(8)

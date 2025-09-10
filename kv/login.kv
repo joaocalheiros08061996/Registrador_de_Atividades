@@ -1,0 +1,102 @@
+#:import dp kivy.metrics.dp
+
+<LoginScreen>:
+    name: 'login'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(16)
+        spacing: dp(10)
+        size_hint: 1, 1
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        # Logo no topo (assets/logo.png)
+        Image:
+            id: login_logo
+            source: 'assets/logo.png'
+            size_hint_y: None
+            height: dp(110)
+            allow_stretch: True
+            keep_ratio: True
+            pos_hint: {"center_x": 0.5}
+
+        # Título
+        Label:
+            text: "Insira seu login e sua senha"
+            size_hint_y: None
+            height: dp(28)
+            font_size: dp(16)
+            halign: "center"
+            valign: "middle"
+            color: 0,0,0,1
+
+        Widget:
+            size_hint_y: None
+            height: dp(8)
+
+        # Campos de entrada (menores)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(110)
+            spacing: dp(8)
+            padding: dp(8), 0
+
+            TextInput:
+                id: username
+                hint_text: "Usuário"
+                size_hint_x: 0.85
+                pos_hint: {"center_x": 0.5}
+                height: dp(40)
+                multiline: False
+                write_tab: False
+                font_size: dp(14)
+
+            TextInput:
+                id: password
+                hint_text: "Senha"
+                password: True
+                size_hint_x: 0.85
+                pos_hint: {"center_x": 0.5}
+                height: dp(40)
+                multiline: False
+                write_tab: False
+                font_size: dp(14)
+
+        Widget:
+            size_hint_y: None
+            height: dp(6)
+
+        # Botões
+        BoxLayout:
+            size_hint_y: None
+            height: dp(48)
+            spacing: dp(8)
+            padding: dp(8)
+
+            Button:
+                text: "Entrar"
+                size_hint_x: 0.48
+                on_release: root.fazer_login(username.text, password.text)
+                background_normal: ''
+                background_color: (0.16, 0.5, 0.5, 1)
+                color: 1,1,1,1
+
+            Button:
+                text: "Criar conta"
+                size_hint_x: 0.34
+                on_release: root.criar_conta_popup()
+                background_normal: ''
+                background_color: (0.2, 0.6, 0.8, 1)
+                color: 1,1,1,1
+
+            Button:
+                text: "Sair"
+                size_hint_x: 0.18
+                on_release: app.stop()
+                background_normal: ''
+                background_color: (0.6,0.6,0.6,1)
+                color: 1,1,1,1
+
+        Widget:
+            size_hint_y: None
+            height: dp(8)
